@@ -73,440 +73,45 @@ body {
 .rule { height: 3px; background: linear-gradient(90deg, var(--ph) 0%, var(--ph) 50px, transparent 50px); flex-shrink: 0; }
 
 
-/* ── BANDEAU ALERTE URGENCE ── */
-.alert-banner {
-  display: none;
-  flex-direction: column;
-  gap: 0;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-
-.alert-banner-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 14px;
-  cursor: pointer;
-  transition: background var(--tr);
-}
-
-.alert-banner-item.alert-24h {
-  background: rgba(192,123,48,.15);
-  border-left: 4px solid var(--ph);
-}
-
-.alert-banner-item.alert-1h {
-  background: rgba(176,58,46,.15);
-  border-left: 4px solid var(--pu);
-  animation: bannerPulse 1.5s ease-in-out infinite;
-}
-
-@keyframes bannerPulse {
-  0%, 100% { background: rgba(176,58,46,.15); }
-  50%       { background: rgba(176,58,46,.28); }
-}
-
-.alert-banner-icon {
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-
-.alert-banner-txt {
-  flex: 1;
-  min-width: 0;
-}
-
-.alert-banner-title {
-  font-size: .72rem;
-  font-weight: 800;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--navy);
-}
-
-.alert-banner-item.alert-1h .alert-banner-title {
-  color: var(--pu);
-}
-
-.alert-banner-item.alert-24h .alert-banner-title {
-  color: var(--ph);
-}
-
-.alert-banner-tasks {
-  font-size: .67rem;
-  font-weight: 500;
-  color: var(--txt2);
-  margin-top: 1px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.alert-banner-count {
-  font-size: .65rem;
-  font-weight: 800;
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  color: var(--white);
-}
-
-.alert-24h .alert-banner-count { background: var(--ph); }
-.alert-1h  .alert-banner-count { background: var(--pu); }
-
-/* Carte tâche urgente — bordure pulsante */
-.task-item.urgent-1h {
-  border-left-color: var(--pu) !important;
-  animation: cardPulse 1.5s ease-in-out infinite;
-}
-
-.task-item.urgent-24h {
-  border-left-color: var(--ph) !important;
-}
-
-@keyframes cardPulse {
-  0%, 100% { box-shadow: none; }
-  50%       { box-shadow: 0 0 0 3px rgba(176,58,46,.18); }
-}
-
-/* Badge temps restant sur la carte */
-.task-time-badge {
-  font-size: .58rem;
-  font-weight: 800;
-  padding: 2px 7px;
-  border-radius: 4px;
-  flex-shrink: 0;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.task-time-badge.t-1h {
-  background: rgba(176,58,46,.1);
-  color: var(--pu);
-  animation: badgePulse 1.5s ease-in-out infinite;
-}
-
-.task-time-badge.t-24h {
-  background: rgba(192,123,48,.1);
-  color: var(--ph);
-}
-
-@keyframes badgePulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: .5; }
-}
-
-/* ── SAISIE ── */
-.inp-sec {
-  padding: 10px 12px 9px;
-  display: flex; flex-direction: column; gap: 7px;
-  background: var(--cream);
-}
-.inp-line { display: flex; gap: 7px; align-items: center; }
-.inp-wrap {
-  flex: 1; display: flex; align-items: center;
-  background: var(--white); border: 1.5px solid var(--sand);
-  border-radius: var(--radius); padding: 0 12px;
-  transition: border-color var(--tr);
-}
-.inp-wrap:focus-within { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(22,45,73,.07); }
-#taskInput {
-  flex: 1; background: none; border: none; outline: none;
-  color: var(--txt); font-family: 'Jost', sans-serif;
-  font-size: .9rem; font-weight: 400; padding: 12px 0; caret-color: var(--navy);
-}
-#taskInput::placeholder { color: var(--txt3); font-weight: 300; }
-
-/* Priorité pills */
-.prio-pills { display: flex; gap: 4px; flex-shrink: 0; }
-.pp {
-  display: flex; align-items: center; gap: 4px;
-  padding: 0 8px; height: 36px; border-radius: 7px;
-  border: 1.5px solid var(--sand); background: var(--white);
-  cursor: pointer; transition: all var(--tr);
-  font-family: 'Jost', sans-serif;
-  -webkit-user-select: none; user-select: none;
-}
-.pp:active { transform: scale(.93); }
-.pp-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.pn { background: var(--pn); }
-.ph { background: var(--ph); }
-.pu { background: var(--pu); }
-.pp-txt { font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--txt3); transition: color var(--tr); }
-
-.pp[data-priority="normal"].active  { border-color: var(--pn); background: rgba(74,127,165,.07); }
-.pp[data-priority="normal"].active .pp-txt { color: var(--pn); }
-.pp[data-priority="high"].active    { border-color: var(--ph); background: rgba(192,123,48,.07); }
-.pp[data-priority="high"].active .pp-txt   { color: var(--ph); }
-.pp[data-priority="urgent"].active  { border-color: var(--pu); background: rgba(176,58,46,.06); }
-.pp[data-priority="urgent"].active .pp-txt { color: var(--pu); }
-
-/* ── OPTION ALERTE DANS LA SAISIE ── */
-.inp-alert-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 4px;
-  cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-/* Checkbox custom */
-.chk-box {
-  width: 18px; height: 18px;
-  border: 1.5px solid var(--sand2);
-  border-radius: 4px;
-  background: var(--white);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  transition: all var(--tr);
-}
-.chk-box svg { display: none; }
-.inp-alert-toggle.checked .chk-box {
-  background: var(--wa);
-  border-color: var(--wa);
-}
-.inp-alert-toggle.checked .chk-box svg { display: block; }
-.chk-label {
-  font-size: .67rem; font-weight: 700;
-  letter-spacing: .08em; text-transform: uppercase;
-  color: var(--txt3);
-  transition: color var(--tr);
-  white-space: nowrap;
-}
-.inp-alert-toggle.checked .chk-label { color: var(--wa); }
-
-/* Champ date/heure de la tâche dans la zone de saisie */
-.inp-alert-dt {
-  display: none;
-  align-items: center;
-  gap: 6px;
-  padding: 0 2px;
-  flex-wrap: wrap;
-}
-.inp-alert-dt.visible { display: flex; }
-.inp-alert-hint { display: none; }
-.inp-alert-dt input[type="datetime-local"] {
-  flex: 1;
-  background: var(--white);
-  border: 1.5px solid var(--wa-border);
-  border-radius: 6px;
-  padding: 8px 10px;
-  font-family: 'Jost', sans-serif;
-  font-size: .8rem;
-  color: var(--txt);
-  outline: none;
-  cursor: pointer;
-  transition: border-color var(--tr);
-  width: 100%;
-}
-.inp-alert-dt input[type="datetime-local"]:focus { border-color: var(--wa); }
-.inp-alert-hint {
-  font-size: .6rem; color: var(--txt3); font-weight: 500;
-  letter-spacing: .06em; white-space: nowrap;
-  flex-shrink: 0;
-}
-
-/* Bouton Ajouter */
-.add-btn {
-  width: 100%; display: flex; align-items: center; justify-content: center; gap: 7px;
-  background: var(--navy); color: var(--white);
-  border: none; border-radius: var(--radius); padding: 13px;
-  font-family: 'Jost', sans-serif; font-size: .78rem; font-weight: 700;
-  letter-spacing: .16em; text-transform: uppercase; cursor: pointer; transition: all var(--tr);
-}
-.add-btn:active { background: var(--navy2); transform: scale(.98); }
-
-/* ── SÉPARATEUR ── */
-.divider { height: 1px; background: var(--sand); flex-shrink: 0; }
-
-/* ── ONGLETS ── */
-.tabs { display: flex; background: var(--cream); flex-shrink: 0; }
-.tab {
-  flex: 1; padding: 9px 0; text-align: center;
-  font-family: 'Jost', sans-serif; font-size: .68rem; font-weight: 700;
-  letter-spacing: .1em; text-transform: uppercase; color: var(--txt3);
-  border: none; background: none; border-bottom: 2px solid transparent;
-  cursor: pointer; transition: all var(--tr);
-  -webkit-user-select: none; user-select: none;
-}
-.tab.active { color: var(--navy); border-bottom-color: var(--navy); }
-.tab.tab-arch.active { color: var(--green); border-bottom-color: var(--green); }
-.tab-badge {
-  display: inline-block; background: var(--navy); color: var(--white);
-  font-size: .55rem; font-weight: 700; border-radius: 10px;
-  padding: 1px 6px; margin-left: 4px; vertical-align: middle;
-}
-.tab-arch .tab-badge,
-.tab-arch.active .tab-badge { background: var(--green); }
-
-/* ── SYNC BAR ── */
-.sync-bar { display: flex; justify-content: flex-end; align-items: center; gap: 5px; padding: 5px 14px 4px; background: var(--cream); }
-.sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; transition: background var(--tr); }
-.sync-dot.syncing { background: var(--ph); animation: pulse 1s infinite; }
-.sync-dot.error   { background: var(--pu); }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
-.sync-txt { font-size: .62rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--txt3); }
-
-/* ── PANELS ── */
-.panel { padding: 8px 12px 4px; flex: 1; overflow-y: auto; }
-.panel::-webkit-scrollbar { width: 3px; }
-.panel::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 2px; }
-
-.empty { display: flex; flex-direction: column; align-items: center; padding: 32px 20px; text-align: center; gap: 7px; }
-.empty p { font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--txt3); }
-.empty span { font-size: .75rem; color: var(--txt3); font-weight: 300; }
-.arch-empty { text-align: center; padding: 28px 20px; font-size: .78rem; color: var(--txt3); font-weight: 500; }
-
-/* ── LISTE ── */
-.task-list { list-style: none; display: flex; flex-direction: column; gap: 7px; padding-bottom: 10px; }
-
-/* ── CARTE TÂCHE ── */
-.task-item {
-  background: var(--white);
-  border: 1px solid var(--sand);
-  border-left: 3px solid var(--pn);
-  border-radius: var(--radius);
-  padding: 10px 10px 10px 12px;
-  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
-  animation: slideIn .2s ease both;
-}
-@keyframes slideIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: none; } }
-.task-item[data-priority="high"]   { border-left-color: var(--ph); }
-.task-item[data-priority="urgent"] { border-left-color: var(--pu); }
-
-.task-text { flex: 1; font-size: .88rem; font-weight: 500; line-height: 1.35; color: var(--txt); word-break: break-word; }
-
-.task-badge { font-size: .56rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 2px 5px; border-radius: 3px; flex-shrink: 0; display: none; }
-.task-item[data-priority="high"] .task-badge   { display: block; color: var(--ph); background: rgba(192,123,48,.1); }
-.task-item[data-priority="urgent"] .task-badge { display: block; color: var(--pu); background: rgba(176,58,46,.08); }
-
-.task-actions { display: flex; gap: 3px; flex-shrink: 0; }
-
-.btn-fait {
-  height: 30px; padding: 0 10px;
-  border: 1.5px solid rgba(61,139,94,.3); border-radius: 6px;
-  background: rgba(61,139,94,.07); color: var(--green);
-  cursor: pointer; display: flex; align-items: center; gap: 4px;
-  font-family: 'Jost', sans-serif; font-size: .65rem; font-weight: 700;
-  letter-spacing: .08em; text-transform: uppercase; transition: all var(--tr); white-space: nowrap;
-}
-.btn-fait:active { background: rgba(61,139,94,.18); transform: scale(.94); }
-
-.task-btn {
-  width: 30px; height: 30px;
-  border: 1px solid var(--sand); border-radius: 6px;
-  background: var(--cream); color: var(--txt2);
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: all var(--tr);
-}
-.task-btn:active { transform: scale(.86); background: var(--sand); }
-
-@keyframes archiveOut { 0% { opacity:1; transform:translateX(0); } 20% { background:rgba(61,139,94,.09); } 100% { opacity:0; transform:translateX(55px); } }
-.task-item.archiving { animation: archiveOut .3s ease forwards; pointer-events: none; }
-.task-item.removing  { transition: opacity .18s, transform .18s; opacity: 0; transform: translateX(-35px); }
-
-/* ── BLOC ALERTE SUR LA CARTE (sous la tâche) ── */
-.task-alert-block {
-  width: 100%;
-  margin-top: 8px;
-  padding: 9px 10px;
-  border-top: 1px dashed var(--sand);
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-
-/* Ligne date échéance */
-.ta-date-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.ta-icon { font-size: .8rem; flex-shrink: 0; }
-
-.ta-date-info { flex: 1; min-width: 0; }
-
-.ta-date-val {
-  font-size: .78rem;
-  font-weight: 700;
-  color: var(--navy);
-}
-
-.ta-date-sub {
-  font-size: .6rem;
-  color: var(--txt3);
-  margin-top: 1px;
-}
-
-/* Pills statut des 2 alertes */
-.ta-pills {
-  display: flex;
-  gap: 5px;
-  flex-wrap: wrap;
-}
-
-.ta-pill {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 8px;
-  border-radius: 5px;
-  font-size: .58rem;
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  border: 1px solid var(--sand);
-  background: var(--cream);
-  color: var(--txt3);
-  white-space: nowrap;
-}
-
-.ta-pill.sent {
-  border-color: var(--wa-border);
-  background: var(--wa2);
-  color: var(--wa);
-}
-
-.ta-pill.pending {
-  border-color: rgba(192,123,48,.3);
-  background: rgba(192,123,48,.07);
-  color: var(--ph);
-}
-
-.ta-pill-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: currentColor;
-  flex-shrink: 0;
-}
-
-/* Bouton supprimer alerte */
-.btn-del-alert {
-  height: 24px; padding: 0 8px;
-  border: 1px solid var(--sand); border-radius: 4px;
-  background: none; color: var(--txt3);
-  font-family: 'Jost', sans-serif; font-size: .58rem; font-weight: 700;
-  letter-spacing: .06em; text-transform: uppercase;
-  cursor: pointer; transition: all var(--tr); flex-shrink: 0;
-}
-.btn-del-alert:active { background: var(--sand); }
-
 /* ── ALERTE DANS LA MODALE MODIFIER ── */
 .modal-alert-section {
   display: flex; flex-direction: column; gap: 8px;
   padding: 10px 12px;
-  background: var(--wa2);
-  border: 1px solid var(--wa-border);
+  border: 1.5px solid var(--sand);
   border-radius: var(--radius);
+  background: var(--cream);
 }
-.modal-alert-section .modal-label { color: var(--wa); margin-bottom: 0; }
-.modal-alert-dt { display: flex; align-items: center; gap: 8px; }
+.modal-alert-section.has-alert {
+  background: var(--wa2);
+  border-color: var(--wa-border);
+}
+
+/* Toggle alerte dans la modale */
+.modal-alert-toggle {
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; -webkit-user-select: none; user-select: none;
+}
+.modal-alert-toggle .chk-box {
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--sand2); border-radius: 4px;
+  background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all var(--tr);
+}
+.modal-alert-toggle .chk-box svg { display: none; }
+.modal-alert-toggle.checked .chk-box { background: var(--wa); border-color: var(--wa); }
+.modal-alert-toggle.checked .chk-box svg { display: block; }
+.modal-alert-toggle .chk-label {
+  font-size: .67rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--txt3); transition: color var(--tr);
+}
+.modal-alert-toggle.checked .chk-label { color: var(--wa); }
+
+.modal-alert-dt {
+  display: none; align-items: center; gap: 8px;
+}
+.modal-alert-dt.visible { display: flex; }
 .modal-alert-dt input[type="datetime-local"] {
   flex: 1; background: var(--white);
   border: 1.5px solid var(--wa-border); border-radius: 6px;
@@ -524,6 +129,20 @@ body {
   cursor: pointer; flex-shrink: 0; transition: all var(--tr);
 }
 .btn-remove-alert-modal:active { background: rgba(176,58,46,.07); }
+
+/* ── BOUTON ALERTE SUR CARTE ── */
+.task-alert-btn {
+  height: 26px; padding: 0 8px;
+  border-radius: 5px; border: 1.5px solid;
+  font-family: 'Jost', sans-serif; font-size: .6rem;
+  font-weight: 800; letter-spacing: .07em; text-transform: uppercase;
+  cursor: default; display: flex; align-items: center; gap: 4px;
+  flex-shrink: 0; white-space: nowrap;
+}
+.task-alert-btn.a-ok   { background: var(--wa2); color: var(--wa); border-color: var(--wa-border); }
+.task-alert-btn.a-24h  { background: rgba(192,123,48,.12); color: var(--ph); border-color: rgba(192,123,48,.4); }
+.task-alert-btn.a-1h   { background: rgba(176,58,46,.12); color: var(--pu); border-color: rgba(176,58,46,.4); animation: alertPulse 1.2s ease-in-out infinite; }
+@keyframes alertPulse { 0%,100%{opacity:1;} 50%{opacity:.55;} }
 
 /* ── CARTE ARCHIVE ── */
 .arch-item {
@@ -625,12 +244,7 @@ body {
     </div>
   </header>
   <div class="rule"></div>
-
-
-  <!-- ── BANDEAU ALERTES URGENTES ── -->
-  <div class="alert-banner" id="alertBanner"></div>
-
-  <!-- ── ZONE DE SAISIE ── -->
+<!-- ── ZONE DE SAISIE ── -->
   <section class="inp-sec">
     <div class="inp-line">
       <div class="inp-wrap">
@@ -707,12 +321,19 @@ body {
         <button class="pp" data-priority="urgent" onclick="setEditPriority('urgent')"><span class="pp-dot pu"></span><span class="pp-txt">Urgent</span></button>
       </div>
     </div>
-    <!-- Section alerte (visible si la tâche a une alerte) -->
-    <div class="modal-alert-section" id="modalAlertSection" style="display:none">
-      <span class="modal-label">📲 Échéance &amp; Alertes WhatsApp (−24h &amp; −1h)</span>
-      <div class="modal-alert-dt">
+    <!-- Section alerte — toujours visible dans la modale -->
+    <div class="modal-alert-section" id="modalAlertSection">
+      <!-- Toggle case à cocher -->
+      <div class="modal-alert-toggle" id="modalAlertToggle" onclick="toggleModalAlert()">
+        <div class="chk-box">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="chk-label">📲 Alerte (−24h &amp; −1h avant l'échéance)</span>
+      </div>
+      <!-- Champ date/heure (visible si coché) -->
+      <div class="modal-alert-dt" id="modalAlertDt">
         <input type="datetime-local" id="editAlertInput" />
-        <button class="btn-remove-alert-modal" onclick="removeAlertInModal()">✕ Supprimer</button>
+        <button class="btn-remove-alert-modal" onclick="removeAlertInModal()">✕</button>
       </div>
     </div>
     <div class="modal-actions">
@@ -729,7 +350,7 @@ body {
    AB RENOV — TASKFLOW — APP.JS
    ═══════════════════════════════════════════════════════ */
 
-const APPS_SCRIPT_URL   = "https://script.google.com/macros/s/AKfycbwu3mfHkMPt92HdAP1Aixw-onW1ocCAaxSn-3GFNfFnUWwFLNqpd2T2rLOwragG3lVh/exec";
+const APPS_SCRIPT_URL   = "https://script.google.com/macros/s/AKfycbzSdM74_-ztvjQ1GLDLUv2bD1d6KTWXr_2BmDzMzWCVrcxmt9IMOa399P3R-3wABBOExg/exec";
 const USE_GOOGLE_SHEETS = true;
 
 /* ── ÉTAT ── */
@@ -915,20 +536,42 @@ function openModal(id) {
     btn.classList.toggle('active', btn.dataset.priority === task.priority);
   });
 
-  // Alerte : afficher section si la tâche a une date d'échéance
-  const alertSection = document.getElementById('modalAlertSection');
-  const alertInput   = document.getElementById('editAlertInput');
+  // Alerte : coché si la tâche a déjà une alerte, décoché sinon
+  const toggle    = document.getElementById('modalAlertToggle');
+  const dtRow     = document.getElementById('modalAlertDt');
+  const alertInput = document.getElementById('editAlertInput');
+  const section   = document.getElementById('modalAlertSection');
+
+  alertInput.min = localDatetimeValue(new Date());
+
   if (task.alertAt) {
-    alertSection.style.display = 'flex';
+    // Tâche avec alerte existante → coché + date affichée
+    toggle.classList.add('checked');
+    dtRow.classList.add('visible');
+    section.classList.add('has-alert');
     alertInput.value = localDatetimeValue(new Date(task.alertAt));
-    alertInput.min   = localDatetimeValue(new Date());
   } else {
-    alertSection.style.display = 'none';
+    // Tâche sans alerte → décoché, champ caché
+    toggle.classList.remove('checked');
+    dtRow.classList.remove('visible');
+    section.classList.remove('has-alert');
     alertInput.value = '';
   }
 
   document.getElementById('modalOverlay').classList.add('open');
   setTimeout(() => { const ei = document.getElementById('editInput'); ei.focus(); ei.select(); }, 80);
+}
+
+function toggleModalAlert() {
+  const toggle  = document.getElementById('modalAlertToggle');
+  const dtRow   = document.getElementById('modalAlertDt');
+  const section = document.getElementById('modalAlertSection');
+  const isOn    = toggle.classList.toggle('checked');
+  dtRow.classList.toggle('visible', isOn);
+  section.classList.toggle('has-alert', isOn);
+  if (isOn) {
+    setTimeout(() => document.getElementById('editAlertInput').focus(), 80);
+  }
 }
 function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); editingId = null; }
 function setEditPriority(p) {
@@ -942,29 +585,37 @@ function saveEdit() {
   if (!task) return;
   task.text = text; task.priority = editPriority;
 
-  // Sauvegarder la nouvelle date d'alerte si la section est visible
-  const alertSection = document.getElementById('modalAlertSection');
-  const alertInput   = document.getElementById('editAlertInput');
-  if (alertSection.style.display !== 'none' && alertInput.value) {
+  const toggle     = document.getElementById('modalAlertToggle');
+  const alertInput = document.getElementById('editAlertInput');
+  const isChecked  = toggle.classList.contains('checked');
+
+  if (isChecked && alertInput.value) {
+    // Alerte cochée avec une date → on sauvegarde
     const newDate = new Date(alertInput.value).toISOString();
-    // Reset alertSent uniquement si la date a changé
     if (task.alertAt !== newDate) {
-      task.alertAt     = newDate;
-      task.alert24sent = false;
-      task.alert1sent  = false;
+      task.alertAt = newDate;
     }
+  } else if (!isChecked) {
+    // Alerte décochée → on supprime
+    delete task.alertAt;
+  } else if (isChecked && !alertInput.value) {
+    // Coché mais pas de date → on avertit
+    alertInput.style.borderColor = 'var(--pu)';
+    setTimeout(() => alertInput.style.borderColor = '', 600);
+    showToast('Choisissez une date !');
+    return;
   }
 
   closeModal(); saveAndRender('Modifiée ✓');
 }
 
 function removeAlertInModal() {
-  const task = tasks.find(t => t.id === editingId);
-  if (!task) return;
-  delete task.alertAt;
-  delete task.alert24sent;
-  delete task.alert1sent;
-  document.getElementById('modalAlertSection').style.display = 'none';
+  const toggle  = document.getElementById('modalAlertToggle');
+  const dtRow   = document.getElementById('modalAlertDt');
+  const section = document.getElementById('modalAlertSection');
+  toggle.classList.remove('checked');
+  dtRow.classList.remove('visible');
+  section.classList.remove('has-alert');
   document.getElementById('editAlertInput').value = '';
 }
 
@@ -993,24 +644,15 @@ function renderTasks() {
     li.dataset.priority = task.priority;
 
     const badge = task.priority === 'urgent' ? 'Urgent' : task.priority === 'high' ? 'Import.' : '';
-
-    // Classes urgence visuelle
-    const now = new Date();
-    if (task.alertAt) {
-      const diff = new Date(task.alertAt) - now;
-      if (diff > 0 && diff <= 60 * 60 * 1000)       li.classList.add('urgent-1h');
-      else if (diff > 0 && diff <= 24 * 60 * 60 * 1000) li.classList.add('urgent-24h');
-    }
-
     li.innerHTML = `
       <span class="task-text">${escapeHtml(task.text)}</span>
       <span class="task-badge">${badge}</span>
-      ${getTimeBadge(task.alertAt)}
       <div class="task-actions">
         <button class="btn-fait" onclick="archiveTask('${task.id}')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
           Fait
         </button>
+        ${renderAlertBlock(task)}
         <button class="task-btn" onclick="openModal('${task.id}')" title="Modifier">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
         </button>
@@ -1018,41 +660,31 @@ function renderTasks() {
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
         </button>
       </div>
-      ${task.alertAt ? renderAlertBlock(task) : ''}
     `;
     list.appendChild(li);
   });
 }
 
 function renderAlertBlock(task) {
-  const d = new Date(task.alertAt);
-  const dateStr = d.toLocaleDateString('fr-FR', { weekday:'short', day:'2-digit', month:'short' });
-  const timeStr = d.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+  if (!task.alertAt) return '';
+  const now  = new Date();
+  const end  = new Date(task.alertAt);
+  const diff = end - now;
+  const d    = end.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit' });
+  const t    = end.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
 
-  const pill24 = task.alert24sent
-    ? `<span class="ta-pill sent"><span class="ta-pill-dot"></span>−24h ✓</span>`
-    : `<span class="ta-pill pending"><span class="ta-pill-dot"></span>−24h en attente</span>`;
+  if (diff <= 0) return '';
 
-  const pill1 = task.alert1sent
-    ? `<span class="ta-pill sent"><span class="ta-pill-dot"></span>−1h ✓</span>`
-    : `<span class="ta-pill pending"><span class="ta-pill-dot"></span>−1h en attente</span>`;
-
-  return `
-    <div class="task-alert-block">
-      <div class="ta-date-row">
-        <span class="ta-icon">📅</span>
-        <div class="ta-date-info">
-          <div class="ta-date-val">${dateStr} à ${timeStr}</div>
-          <div class="ta-date-sub">Échéance — alertes WhatsApp programmées</div>
-        </div>
-        <button class="btn-del-alert" onclick="removeTaskAlert('${task.id}')">✕ Alerte</button>
-      </div>
-      <div class="ta-pills">
-        ${pill24}
-        ${pill1}
-      </div>
-    </div>
-  `;
+  if (diff <= 60 * 60 * 1000) {
+    const mins = Math.ceil(diff / 60000);
+    return '<span class="task-alert-btn a-1h">&#x1F6A8; ' + mins + ' min</span>';
+  } else if (diff <= 24 * 60 * 60 * 1000) {
+    const hrs = Math.floor(diff / 3600000);
+    const mn  = Math.ceil((diff % 3600000) / 60000);
+    return '<span class="task-alert-btn a-24h">&#x26A0;&#xFE0F; ' + hrs + 'h' + (mn > 0 ? mn + 'm' : '') + '</span>';
+  } else {
+    return '<span class="task-alert-btn a-ok">&#x1F4C5; ' + d + ' ' + t + '</span>';
+  }
 }
 
 function renderArchived() {
@@ -1109,77 +741,9 @@ function showToast(msg) {
 
 /* ── ALERTES VISUELLES ── */
 function checkVisualAlerts() {
-  const now    = new Date();
-  const in1h   = new Date(now.getTime() + 60 * 60 * 1000);
-  const in24h  = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-
-  const tasks1h  = tasks.filter(t => t.alertAt && new Date(t.alertAt) <= in1h  && new Date(t.alertAt) > now);
-  const tasks24h = tasks.filter(t => t.alertAt && new Date(t.alertAt) <= in24h && new Date(t.alertAt) > in1h);
-
-  const banner = document.getElementById('alertBanner');
-  banner.innerHTML = '';
-
-  let hasAlert = false;
-
-  // Alerte −1h (rouge, prioritaire)
-  if (tasks1h.length > 0) {
-    hasAlert = true;
-    const names = tasks1h.map(t => t.text).join(', ');
-    const item = document.createElement('div');
-    item.className = 'alert-banner-item alert-1h';
-    item.onclick = () => switchTab('tasks');
-    item.innerHTML = `
-      <span class="alert-banner-icon">🚨</span>
-      <div class="alert-banner-txt">
-        <div class="alert-banner-title">Échéance dans moins d'1 heure !</div>
-        <div class="alert-banner-tasks">${escapeHtml(names)}</div>
-      </div>
-      <span class="alert-banner-count">${tasks1h.length}</span>
-    `;
-    banner.appendChild(item);
-  }
-
-  // Alerte −24h (orange)
-  if (tasks24h.length > 0) {
-    hasAlert = true;
-    const names = tasks24h.map(t => t.text).join(', ');
-    const item = document.createElement('div');
-    item.className = 'alert-banner-item alert-24h';
-    item.onclick = () => switchTab('tasks');
-    item.innerHTML = `
-      <span class="alert-banner-icon">⚠️</span>
-      <div class="alert-banner-txt">
-        <div class="alert-banner-title">Échéance dans moins de 24h</div>
-        <div class="alert-banner-tasks">${escapeHtml(names)}</div>
-      </div>
-      <span class="alert-banner-count">${tasks24h.length}</span>
-    `;
-    banner.appendChild(item);
-  }
-
-  banner.style.display = hasAlert ? 'flex' : 'none';
+  // Les alertes sont affichées directement sur chaque carte tâche
 }
 
-function getTimeBadge(alertAt) {
-  if (!alertAt) return '';
-  const now  = new Date();
-  const end  = new Date(alertAt);
-  const diff = end - now;
-  if (diff <= 0) return '';
-
-  const in1h  = 60 * 60 * 1000;
-  const in24h = 24 * 60 * 60 * 1000;
-
-  if (diff <= in1h) {
-    const mins = Math.ceil(diff / 60000);
-    return `<span class="task-time-badge t-1h">🚨 ${mins} min</span>`;
-  } else if (diff <= in24h) {
-    const hrs = Math.floor(diff / 3600000);
-    const mins = Math.ceil((diff % 3600000) / 60000);
-    return `<span class="task-time-badge t-24h">⚠️ ${hrs}h${mins > 0 ? mins : ''}</span>`;
-  }
-  return '';
-}
 
 /* ── SAVE & RENDER ── */
 function saveAndRender(toastMsg = '') {
